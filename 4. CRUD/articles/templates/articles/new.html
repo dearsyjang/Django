@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="m-2"><strong>NEW</strong></h1>
+<form action=" {% url 'articles:create' %}" method="POST">
+  {% csrf_token %}
+  <p>
+    <label for="title" class="m-2">TITLE: </label>
+    <input type="text" id="title" name="title">
+  </p>
+  <p>
+    <label for="content" class="m-2">CONTENT: </label>
+    <textarea name="content" id="content" cols="30" rows="10"></textarea>
+  </p>
+  <input type="submit" value="작성" class= "m-2">
+</form>
+<a href=" {% url 'articles:index' %} " class= "m-2"> BACK </a> 
+{% endblock content %}
