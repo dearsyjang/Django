@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>INDEX</h1>
+  <a href="{% url 'todos:new' %}" class=>NEW</a>
+  <hr>
+  {% for todo in todos %}
+    <h2>To Do: {{ todo.title }}</h2>
+    <h5>Post by: {{ todo.user }}</h5>
+    <h5>Completed: {{ todo.completed }}</h5>
+    <hr>
+  {% endfor %}
+{% endblock content %}
