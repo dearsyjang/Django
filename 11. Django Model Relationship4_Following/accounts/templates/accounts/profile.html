@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1><i class="fa-solid fa-user-large"></i> {{ person.username }}님의 프로필</h1>
+  <div>
+    <i class="fa-solid fa-user-group"></i>팔로워 : {{ person.followers.all|length }} 
+    <i class="fa-solid fa-user-group"></i>팔로잉: {{ person.followings.all|length }}
+  </div>
+<hr>
+  <div>
+    {% if user != person %}
+      <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in person.followers.all %}
+          <button class="btn btn-outline-light"><i type="submit" class="fa-solid fa-user-check" style="color: blue"></i></button>
+        {% else %}
+          <button class="btn btn-outline-light"><i type="submit" class="fa-solid fa-user-plus" style="color: black"></i></button>
+        {% endif %}
+      </form>
+    {% endif %}
+  </div>
+<hr>
+
+{% comment %} 작성한 게시글 목록 {% endcomment %}
+<h2>{{ person.username }}이 작석한 게시글</h2>
+{% for article in person.article_set.all %}
+  <p>{{ article.title }}</p>
+{% endfor %}
+
+<hr>
+
+{% comment %} 이 사람이 좋아요를 누른 게시글 목록 {% endcomment %}
+<h2>{{ person.username }}이 좋아요 누른 게시글</h2>
+{% for article in person.like_articles.all %}
+  <p>{{ article.title }}</p>
+{% endfor %}
+
+<a href="{% url 'articles:index' %}">[back]</a>
+
+{% endblock content %}
